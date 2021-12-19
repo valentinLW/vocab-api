@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_10_17_104708) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "boxes", force: :cascade do |t|
     t.string "name"
     t.string "language"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 2021_10_17_104708) do
   end
 
   create_table "cards", force: :cascade do |t|
-    t.integer "box_id", null: false
+    t.bigint "box_id", null: false
     t.integer "color"
     t.integer "level"
     t.string "from"
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_10_17_104708) do
     t.string "language_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "next_test", default: "2021-10-17 10:48:31"
+    t.datetime "next_test", default: "2021-12-19 20:42:24"
     t.index ["box_id"], name: "index_cards_on_box_id"
   end
 
@@ -37,7 +40,7 @@ ActiveRecord::Schema.define(version: 2021_10_17_104708) do
     t.integer "order"
     t.integer "interval"
     t.string "quiztype"
-    t.integer "box_id", null: false
+    t.bigint "box_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["box_id"], name: "index_slots_on_box_id"
