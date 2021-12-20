@@ -1206,6 +1206,7 @@ GEM
     aws-sigv2 (1.1.0)
     aws-sigv4 (1.4.0)
       aws-eventstream (~> 1, >= 1.0.2)
+    bcrypt (3.1.16)
     bootsnap (1.9.1)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -1307,6 +1308,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (~> 3)
   aws-sdk-polly
+  bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug
   dotenv-rails
