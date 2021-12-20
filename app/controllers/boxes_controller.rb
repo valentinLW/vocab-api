@@ -2,8 +2,8 @@ class BoxesController < ApplicationController
   before_action :auth_box, only: [:show, :delete, :reset]
 
   def index
-    @boxes = Box.all
-    card_count = Card.where('next_test <= ?', Time.zone.now).group(:box_id).count
+    @boxes = Box.where(user: logged_in_user)
+    card_count = Card.where('next_test <= ?', Time.zone.now).where(box: @boxes).group(:box_id).count
     render json: { boxes: @boxes, counts: card_count }
   end
 
