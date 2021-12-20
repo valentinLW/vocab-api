@@ -14,7 +14,7 @@ class BoxesController < ApplicationController
   end
 
   def new
-    @box = Box.new(name: params[:name], language: params[:language])
+    @box = Box.new(name: params[:name], language: params[:language], user: logged_in_user)
     if @box.save
       render json: { box: @box }, status: 200
     else
