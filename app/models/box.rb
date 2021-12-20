@@ -1,6 +1,7 @@
 DEFAULT_INTERVALS = [0, 15, 60, 360, 1440]
 
 class Box < ApplicationRecord
+  belongs_to :user
   has_many :cards, dependent: :destroy
   has_many :slots, dependent: :destroy
   validates :name, presence: true

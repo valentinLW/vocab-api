@@ -23,6 +23,7 @@ AWS_SETTINGS = {
 
 class Card < ApplicationRecord
   belongs_to :box
+  has_one :user, :through => :box
 
   before_create do
     client = Aws::Polly::Client.new
