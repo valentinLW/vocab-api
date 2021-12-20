@@ -1,4 +1,6 @@
 class BoxesController < ApplicationController
+  before_action :auth_box, only: [:show, :delete, :reset]
+
   def index
     @boxes = Box.all
     card_count = Card.where('next_test <= ?', Time.zone.now).group(:box_id).count
@@ -6,7 +8,6 @@ class BoxesController < ApplicationController
   end
 
   def show
-    @box = Box.find(params[:id])
     @cards = Card.where(box: @box)
     @slots = Slot.where(box: @box)
     render json: { box: @box, cards: @cards, slots: @slots }
@@ -22,7 +23,6 @@ class BoxesController < ApplicationController
   end
 
   def delete
-    @box = Box.find(params[:id])
     if @box.destroy
       render json: {}, status: 200
     else
@@ -31,7 +31,6 @@ class BoxesController < ApplicationController
   end
 
   def reset
-    @box = Box.find(params[:id])
     @box.cards.each do |card|
       card.level = 1
       card.next_test = Time.zone.now
@@ -39,4 +38,12 @@ class BoxesController < ApplicationController
     end
     render json: {}, status: 200
   end
+
+  private
+
+  def auth_box
+    @box = Box.find(params[:id])
+    render json:{}, status: 401 unless @box.user == logged_in_user
+  end
+
 end
