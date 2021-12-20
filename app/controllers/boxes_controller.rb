@@ -43,7 +43,6 @@ class BoxesController < ApplicationController
 
   def auth_box
     @box = Box.find(params[:id])
-    render json:{}, status: 401 unless @box.user == logged_in_user
+    render json: {}, status: 401 unless @box.user == logged_in_user
   end
-
 end

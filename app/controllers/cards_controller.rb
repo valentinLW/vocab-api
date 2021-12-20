@@ -1,6 +1,8 @@
 class CardsController < ApplicationController
+  before_action :auth_card, only: [:update, :destroy]
+  before_action :auth_box, only: [:new, :new_batch]
+
   def update
-    @card = Card.find(params[:id])
     if params[:correct]
       @card.level += 1 unless @card.level == 5
     else
@@ -18,7 +20,6 @@ class CardsController < ApplicationController
   end
 
   def new
-    @box = Box.find(params[:box_id])
     @card = Card.new(
       language_code: @box.language,
       box: @box,
@@ -36,7 +37,6 @@ class CardsController < ApplicationController
   end
 
   def new_batch
-    @box = Box.find(params[:box_id])
     cards = []
     bad = []
     csv = params[:csv]
@@ -63,11 +63,22 @@ class CardsController < ApplicationController
   end
 
   def destroy
-    @card = Card.find(params[:id])
     if @card.delete
       render json: {}, status: 200
     else
       render json: {}, status: 400
     end
+  end
+
+  private
+
+  def auth_card
+    @card = Card.find(params[:id])
+    render json: {}, status: 401 unless @card.user == logged_in_user
+  end
+
+  def auth_box
+    @box = Box.find(params[:box_id])
+    render json: {}, status: 401 unless @box.user == logged_in_user
   end
 end
