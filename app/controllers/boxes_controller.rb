@@ -1,10 +1,11 @@
 class BoxesController < ApplicationController
-  before_action :auth_box, only: [:show, :delete, :reset]
+  before_action :auth_box, only: %i[show delete reset mastery]
 
   def index
     @boxes = Box.where(user: logged_in_user)
     card_count = Card.where('next_test <= ?', Time.zone.now).where(box: @boxes).group(:box_id).count
-    render json: { boxes: @boxes, counts: card_count }
+    mastery_count = Mastery.where(user: logged_in_user).where('next_test <= ?', Time.zone.now).count
+    render json: { boxes: @boxes, counts: card_count, mastery_count: mastery_count }
   end
 
   def show
@@ -36,6 +37,14 @@ class BoxesController < ApplicationController
       card.next_test = Time.zone.now
       card.save
     end
+    render json: {}, status: 200
+  end
+
+  def mastery
+    @box.cards.each do |card|
+      Mastery.create!(from: card.from, to: card.to, audio: card.audio, repetitions: 0, ease: 2.5, interval: 0, user: card.user)
+    end
+    @box.destroy
     render json: {}, status: 200
   end
 

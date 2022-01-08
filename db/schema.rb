@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_20_132351) do
+ActiveRecord::Schema.define(version: 2022_01_08_123934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,20 @@ ActiveRecord::Schema.define(version: 2021_12_20_132351) do
     t.index ["box_id"], name: "index_cards_on_box_id"
   end
 
+  create_table "masteries", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "from"
+    t.string "to"
+    t.string "audio"
+    t.integer "repetitions"
+    t.integer "interval"
+    t.float "ease"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "next_test", default: "2022-01-08 12:41:39"
+    t.index ["user_id"], name: "index_masteries_on_user_id"
+  end
+
   create_table "slots", force: :cascade do |t|
     t.integer "order"
     t.integer "interval"
@@ -58,5 +72,6 @@ ActiveRecord::Schema.define(version: 2021_12_20_132351) do
 
   add_foreign_key "boxes", "users"
   add_foreign_key "cards", "boxes"
+  add_foreign_key "masteries", "users"
   add_foreign_key "slots", "boxes"
 end
