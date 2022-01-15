@@ -6,6 +6,12 @@ class MasteryController < ApplicationController
     render json: { masteries: @masteries }
   end
 
+  def index
+    @masteries = Mastery.where(user: logged_in_user)
+    @masteries_dist = @masteries.group_by { |m| m.next_test.to_s[0..9] }.transform_values(&:size)
+    render json: { masteries: @masteries, masteries_dist: @masteries_dist }
+  end
+
   def update
     @mastery.calculate(params[:difficulty])
     if @mastery.save

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'boxes/:id/reset', to: 'boxes#reset'
     get 'boxes/:id/mastery', to: 'boxes#mastery'
     get 'mastery', to: 'mastery#show'
+    get 'masteries', to: 'mastery#index'
     patch 'mastery/:id', to: 'mastery#update'
     delete 'boxes/:id', to: 'boxes#delete'
     patch 'cards/:id', to: 'cards#update'
