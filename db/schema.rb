@@ -12,20 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2022_01_08_123934) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "boxes", force: :cascade do |t|
     t.string "name"
     t.string "language"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.index ["user_id"], name: "index_boxes_on_user_id"
   end
 
   create_table "cards", force: :cascade do |t|
-    t.bigint "box_id", null: false
+    t.integer "box_id", null: false
     t.integer "color"
     t.integer "level"
     t.string "from"
@@ -34,12 +31,12 @@ ActiveRecord::Schema.define(version: 2022_01_08_123934) do
     t.string "language_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "next_test", default: "2021-12-19 20:42:24"
+    t.datetime "next_test", default: "2022-04-15 08:58:29"
     t.index ["box_id"], name: "index_cards_on_box_id"
   end
 
   create_table "masteries", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.string "from"
     t.string "to"
     t.string "audio"
@@ -48,7 +45,7 @@ ActiveRecord::Schema.define(version: 2022_01_08_123934) do
     t.float "ease"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "next_test", default: "2022-01-08 12:41:39"
+    t.datetime "next_test", default: "2022-04-15 08:58:29"
     t.index ["user_id"], name: "index_masteries_on_user_id"
   end
 
@@ -56,7 +53,7 @@ ActiveRecord::Schema.define(version: 2022_01_08_123934) do
     t.integer "order"
     t.integer "interval"
     t.string "quiztype"
-    t.bigint "box_id", null: false
+    t.integer "box_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["box_id"], name: "index_slots_on_box_id"
