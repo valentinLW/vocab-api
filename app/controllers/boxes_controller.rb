@@ -42,7 +42,7 @@ class BoxesController < ApplicationController
 
   def mastery
     @box.cards.each do |card|
-      Mastery.create!(from: card.from, to: card.to, definition: card.definition, audio: card.audio, repetitions: 0, ease: 2.5, interval: 0, user: card.user)
+      Mastery.create!(from: card.from, to: card.to, definition: card.definition, audio: card.audio, repetitions: 0, ease: 2.5, interval: 0, user: card.user, color: card.color)
     end
     @box.destroy
     render json: {}, status: 200

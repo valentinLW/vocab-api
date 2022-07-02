@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_01_164017) do
+ActiveRecord::Schema.define(version: 2022_07_02_173721) do
 
   create_table "boxes", force: :cascade do |t|
     t.string "name"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2022_07_01_164017) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "next_test", default: "2022-04-15 08:58:29"
     t.text "definition"
+    t.integer "color"
     t.index ["user_id"], name: "index_masteries_on_user_id"
   end
 
