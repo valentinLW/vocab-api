@@ -25,6 +25,7 @@ class CardsController < ApplicationController
       box: @box,
       from: params[:from],
       to: params[:to],
+      definition: params[:definition],
       color: rand(1..5),
       level: 1
     )
@@ -51,6 +52,7 @@ class CardsController < ApplicationController
           box: @box,
           from: words[0],
           to: words[1],
+          definition: words[2],
           color: rand(1..5),
           level: 1
         )

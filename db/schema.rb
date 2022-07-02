@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_08_123934) do
+ActiveRecord::Schema.define(version: 2022_07_01_164017) do
 
   create_table "boxes", force: :cascade do |t|
     t.string "name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2022_01_08_123934) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "next_test", default: "2022-04-15 08:58:29"
+    t.text "definition"
     t.index ["box_id"], name: "index_cards_on_box_id"
   end
 
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 2022_01_08_123934) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "next_test", default: "2022-04-15 08:58:29"
+    t.text "definition"
     t.index ["user_id"], name: "index_masteries_on_user_id"
   end
 
